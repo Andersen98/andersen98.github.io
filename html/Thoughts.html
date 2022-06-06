@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Thoughts &#8212; Nano-Optics  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="QNMs of 1D Fabry-Perot Resonators" href="Fabry-Perot-Example.html" />
+    <link rel="prev" title="Nano-Optics" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="thoughts">
+<h1>Thoughts<a class="headerlink" href="#thoughts" title="Permalink to this headline">¶</a></h1>
+<p>[[TODO]]</p>
+<ul class="simple">
+<li><p>copy the citation for  scully over to the web apps folder</p></li>
+<li><p>make list of requirements for dipole approximation</p></li>
+<li><p>copy down Dipole Hamiltonian</p></li>
+<li><p>Copy Down system and bath hamiltonian</p></li>
+<li><p>just link to how qutip solves the dynamics</p></li>
+<li><p>Show results</p></li>
+</ul>
+<section id="d-cavity">
+<h2>1D Cavity<a class="headerlink" href="#d-cavity" title="Permalink to this headline">¶</a></h2>
+<p>We follow Scully’s layout in (in Quantum Optics, Ch. 1) and begin with a 1D cavity.</p>
+<p><img alt="sully" src="_images/018F29B0-ED2D-4510-9663-E6BDF9823961.jpeg" /></p>
+<section id="normal-mode-expansion">
+<h3>Normal Mode Expansion<a class="headerlink" href="#normal-mode-expansion" title="Permalink to this headline">¶</a></h3>
+<p>Following Scully, we take the electric field to be linearly polarized in the x-direction. We then expand the electric field in the <strong>normal modes</strong> of the cavity.</p>
+<div class="math notranslate nohighlight">
+\[
+E_x(z,t) = \sum_j A_j q_j(t)\sin(k_j z)
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(v_j=j\pi c/L\)</span> is the cavity eigenfrequency</p></li>
+<li><p><span class="math notranslate nohighlight">\(V = L\,A\)</span> is the volume (<span class="math notranslate nohighlight">\(A\)</span> is the transverse area of the optical resonator)</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_j = (\frac{2 \nu^2_j m_j}{V \epsilon_0})^2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m_j\)</span> is a constant with dimension of mass. It is included so we can establish the analogy beween this system and a spring</p></li>
+</ul>
+<p>Next we expand the non-vanishing component of the magnetic field <span class="math notranslate nohighlight">\(H_y\)</span>.
+$<span class="math notranslate nohighlight">\(
+H_y = \sum_j A_j (\frac{\dot{q}_j \epsilon_0}{k_j})\cos(k_j z)
+\)</span>$</p>
+</section>
+<section id="classical-hamiltonian-for-a-1d-cavity">
+<h3>Classical Hamiltonian for a 1D cavity<a class="headerlink" href="#classical-hamiltonian-for-a-1d-cavity" title="Permalink to this headline">¶</a></h3>
+<p>The classical Hamiltonian for our 1D cavity is just an integration over the non vanishing field components (<span class="math notranslate nohighlight">\(E_x\)</span> and <span class="math notranslate nohighlight">\(H_y\)</span>, which are only non-zero inside the volume <span class="math notranslate nohighlight">\(V\)</span>).
+$<span class="math notranslate nohighlight">\(
+\mathcal H = \frac{1}{2} \int_V d\tau (\epsilon_0 E_x^2 + \mu_0 H_y^2)
+\)</span><span class="math notranslate nohighlight">\(
+When we substitute \)</span>E_x<span class="math notranslate nohighlight">\( and \)</span>H_y<span class="math notranslate nohighlight">\( with thier normal mode expansions, we can express the Hamiltonian of the radiation field as a sum of independent oscillator energies. 
+\)</span><span class="math notranslate nohighlight">\(\begin{align}
+\mathcal H &amp;= \frac{1}{2} \sum_j (m_j \nu_j^2 q_j^2 + m_j \dot q_j ^2)\\
+&amp;=\frac{1}{2}\sum_j \left( m_j \nu_j^2 q_j^2 + \frac{p_j^2}{m_j} \right)
+\end{align}
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_j = m_j \dot q_j\)</span> is the canonical momentum of the <span class="math notranslate nohighlight">\(j\)</span>th mode.</p></li>
+<li><p><span class="math notranslate nohighlight">\(q_j\)</span> is the canonical position of the <span class="math notranslate nohighlight">\(j\)</span>th mode #TODO (needs verified)</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="scully-ch-6">
+<h1>Scully Ch. 6<a class="headerlink" href="#scully-ch-6" title="Permalink to this headline">¶</a></h1>
+<p>[[scully]]</p>
+<p>Here is the source:</p>
+<blockquote>
+<div><p>&#64;book{Scully1997,
+title = {{Quantum Optics}},
+year = {1997},
+author = {Scully, Marlan O. and Zubairy, M. Suhail},
+month = {9},
+publisher = {Cambridge University Press},
+url = {https://www.cambridge.org/core/product/identifier/9780511813993/type/book},
+isbn = {9780521435956},
+doi = {10.1017/CBO9780511813993}
+}</p>
+</div></blockquote>
+<section id="atom-field-interaction-hamiltonian">
+<h2>Atom-Field Interaction Hamiltonian<a class="headerlink" href="#atom-field-interaction-hamiltonian" title="Permalink to this headline">¶</a></h2>
+<p>In many cases, we only need to concern outserlves with the dipole interaction between light and matter:</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(H = H_A + H_F -e\vec{r}\cdot\vec{E}\)</span></p>
+</div></blockquote>
+<p>Expanding this out term by term:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H_f = \sum_k \hbar \nu_k (a^\dagger a + 1/2)\)</span> #field-hamiltonian</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_A = \sum_i E_i |i\rangle \langle i |\)</span> #atom-hamiltonian</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vec E = \sum_{\vec k} \hat \epsilon_{\vec k}\,\mathcal{E}_{\vec k} (a_{\vec k} + a^\dagger_{\vec k})\)</span> #descretized-field</p></li>
+<li><p><span class="math notranslate nohighlight">\(e\vec r = \sum_{i j} |i \rangle \langle i | \vec r | j \rangle \langle j | = \sum_{i j} |\mathcal{D}_{i j} \sigma_{i j}\)</span></p></li>
+</ul>
+<p>Where <span class="math notranslate nohighlight">\(\mathcal{E}_{\vec k} = (\hbar \nu_k/2 \epsilon_0 V)^{1/2}\)</span>. When combining all of the above, we find that the dipole interaction Hamiltonian is given by:
+$<span class="math notranslate nohighlight">\(
+H = \sum_k \hbar \nu_k (a^\dagger a + 1/2) + \sum_i E_i |i\rangle \langle i| + \hbar \sum_{i j} \sum_{\vec k}g^{i j}_{\vec k} \sigma_{i j}(a_{\vec k} + a^\dagger_{\vec k}),
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span><span class="math notranslate nohighlight">\(
+g_{\vec k}^{i j} = -\frac{\mathcal D_{i j} \cdot \hat \epsilon_{\vec k} \mathcal{E}_{\vec k}}{\hbar}. 
+\)</span>$</p>
+</section>
+<section id="two-level-atom">
+<h2>Two Level Atom<a class="headerlink" href="#two-level-atom" title="Permalink to this headline">¶</a></h2>
+<p>We now look at the case of the 2 level atom. The Hamiltonian now takes the form:</p>
+<div class="math notranslate nohighlight">
+\[
+H = \sum_k \hbar \nu_k (a^\dagger a + 1/2) + \sum_i E_i |i\rangle \langle i| + \hbar \sum_{i j} \sum_{\vec k}g^{i j}_{\vec k} \sigma_{i j}(a_{\vec k} + a^\dagger_{\vec k}),
+\]</div>
+</section>
+<section id="approximations-used-on-this-page">
+<h2>Approximations used on this page<a class="headerlink" href="#approximations-used-on-this-page" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rotating</span> <span class="pre">wave</span> <span class="pre">approximation</span></code>:   We ignore counter rotating terms. This amounts to ignoring solutions that break energy convseravtion.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dipole</span> <span class="pre">approximation</span></code>:  We consider the case where we can assume the spatial variation of the field across the emmitter is negligable. In otherwords,  <span class="math notranslate nohighlight">\(\vec{k} \cdot \vec{r} \ll 1\)</span></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Nano-Optics</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Thoughts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#d-cavity">1D Cavity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#normal-mode-expansion">Normal Mode Expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classical-hamiltonian-for-a-1d-cavity">Classical Hamiltonian for a 1D cavity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#scully-ch-6">Scully Ch. 6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#atom-field-interaction-hamiltonian">Atom-Field Interaction Hamiltonian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-level-atom">Two Level Atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#approximations-used-on-this-page">Approximations used on this page</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Fabry-Perot-Example.html">QNMs of 1D Fabry-Perot Resonators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html">Part 1: Benzene Excited State Calculation with PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#geometry-optimization">Geometry Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#units">Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#calculating-benzene-in-a-leaky-cavity">Calculating Benzene in a Leaky Cavity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meetings.html">Meetings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QD-Nano-Antenna-Example.html">Two Quantum Dots Connected via a Gold Nano-Antenna</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Nano-Optics</a></li>
+      <li>Next: <a href="Fabry-Perot-Example.html" title="next chapter">QNMs of 1D Fabry-Perot Resonators</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Thoughts.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

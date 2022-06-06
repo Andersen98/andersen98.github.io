@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>QNMs of 1D Fabry-Perot Resonators &#8212; Nano-Optics  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Part 1: Benzene Excited State Calculation with PySCF" href="benzene2.html" />
+    <link rel="prev" title="Thoughts" href="Thoughts.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="qnms-of-1d-fabry-perot-resonators">
+<h1>QNMs of 1D Fabry-Perot Resonators<a class="headerlink" href="#qnms-of-1d-fabry-perot-resonators" title="Permalink to this headline">¶</a></h1>
+<p>We will try to gain insight into the properties of QNMs by investigating the case of a 1D Fabry-Perot resonator. As we go through the example, keep in mind that  will expect  the field in the resonator can be written as a sum over its different resonant modes.</p>
+<section id="problem-setup">
+<h2>Problem Setup<a class="headerlink" href="#problem-setup" title="Permalink to this headline">¶</a></h2>
+<p>We are given a slab that:</p>
+<ul class="simple">
+<li><p>is of length <span class="math notranslate nohighlight">\(L\)</span></p></li>
+<li><p>has a refractive index <span class="math notranslate nohighlight">\(n(\omega)\)</span> <a class="footnote-reference brackets" href="#id2" id="id1">1</a></p></li>
+<li><p>is embedded in a hoogeneous medium of refractive index <span class="math notranslate nohighlight">\(n_1\)</span></p></li>
+</ul>
+<p><strong>Given this setup, we wish to find a general solution to the field.</strong></p>
+</section>
+<section id="eigenmodes-are-just-plane-waves-bouncing-back-and-forth">
+<h2>Eigenmodes are just plane waves bouncing back and forth<a class="headerlink" href="#eigenmodes-are-just-plane-waves-bouncing-back-and-forth" title="Permalink to this headline">¶</a></h2>
+<p>In the absence of an incident wave, the field at frequency <span class="math notranslate nohighlight">\(\omega = ck\)</span> can be written as the superposition of two counter-propagating plane waves inside the cavity and two outgoing plane waves outside.</p>
+<p><img alt="interface" src="_images/BB5C2435-688D-4DDE-AC63-A2336D0B9E8C.jpeg" /></p>
+<p>Formally speaking:</p>
+<ul class="simple">
+<li><p>reflectance <span class="math notranslate nohighlight">\(r\)</span></p></li>
+<li><p>transmission <span class="math notranslate nohighlight">\(t\)</span></p></li>
+</ul>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(E(z)= \begin{cases} A \exp (iknz)\pm A \exp(-iknz), &amp; \text{for \)</span>|z| &lt; \frac{L}{2}<span class="math notranslate nohighlight">\( }\\ B\exp(ikn_1 z), &amp; \text{ for \)</span>z\geq \frac{L}{2}<span class="math notranslate nohighlight">\( }\\ \pm B \exp(-ikn_1z) , &amp; \text{for \)</span>z \leq -\frac{L}{2}<span class="math notranslate nohighlight">\( \end{cases}\)</span></p></li>
+</ul>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(B\exp(ik n_1 L/2) = t A \exp(iknL/2)\)</span></p></li>
+</ul>
+<section id="resonance-condition-and-leakage-imply-complex-frequency">
+<h3>Resonance Condition and leakage imply complex frequency<a class="headerlink" href="#resonance-condition-and-leakage-imply-complex-frequency" title="Permalink to this headline">¶</a></h3>
+<p>The resonance condition  The resonance condition says that the field amplitude <span class="math notranslate nohighlight">\(A\)</span> should be recovered after one round trip in the resonator. This implies that
+$<span class="math notranslate nohighlight">\(A = r^2 A \exp(2iknL).\)</span>$</p>
+<ul class="simple">
+<li><p>Since the cavity loses energy via leakage, <strong>we know <span class="math notranslate nohighlight">\(|r^2| &lt; 1\)</span></strong></p></li>
+<li><p>SInce the cavity loses energy via absorption, <strong>we know <span class="math notranslate nohighlight">\(\text{Im} (n)&gt; 0\)</span></strong></p></li>
+</ul>
+<p>Thus, the solutions for mode frequency must be complex numbers:
+$<span class="math notranslate nohighlight">\( \tilde{\omega}_m = c\tilde{k}_m = \Omega_m - i \Gamma_m /2.\)</span>$</p>
+<p>Which verify:</p>
+<div class="math notranslate nohighlight">
+\[1 - r^2\, (\tilde{\omega}_m) \exp(2i \frac{\tilde{\omega}_m}{c}\,n(\tilde{\omega}_m ) \,L ) = 0\]</div>
+<p>Our takeaway from this is that:</p>
+<blockquote>
+<div><p>The imaginary part of the complex frequency <em>restores the stationary state</em> in the leaky cavity by <em>amplifying waves</em>.</p>
+</div></blockquote>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>`For now we neglect the slab dispersion.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Nano-Optics</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html">Thoughts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html#scully-ch-6">Scully Ch. 6</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">QNMs of 1D Fabry-Perot Resonators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#problem-setup">Problem Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#eigenmodes-are-just-plane-waves-bouncing-back-and-forth">Eigenmodes are just plane waves bouncing back and forth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resonance-condition-and-leakage-imply-complex-frequency">Resonance Condition and leakage imply complex frequency</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html">Part 1: Benzene Excited State Calculation with PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#geometry-optimization">Geometry Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#units">Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#calculating-benzene-in-a-leaky-cavity">Calculating Benzene in a Leaky Cavity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meetings.html">Meetings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QD-Nano-Antenna-Example.html">Two Quantum Dots Connected via a Gold Nano-Antenna</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Thoughts.html" title="previous chapter">Thoughts</a></li>
+      <li>Next: <a href="benzene2.html" title="next chapter">Part 1: Benzene Excited State Calculation with PySCF</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Fabry-Perot-Example.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

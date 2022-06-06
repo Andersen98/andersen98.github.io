@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Part 1: Benzene Excited State Calculation with PySCF &#8212; Nano-Optics  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Meetings" href="meetings.html" />
+    <link rel="prev" title="QNMs of 1D Fabry-Perot Resonators" href="Fabry-Perot-Example.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="part-1-benzene-excited-state-calculation-with-pyscf">
+<h1>Part 1: Benzene Excited State Calculation with PySCF<a class="headerlink" href="#part-1-benzene-excited-state-calculation-with-pyscf" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will use PySCF to calculate the excited states and the electric dipole transition matrix elements of benzene.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="geometry-optimization">
+<h1>Geometry Optimization<a class="headerlink" href="#geometry-optimization" title="Permalink to this headline">¶</a></h1>
+<p>To start things off, let’s use PySCF to optimize the geometry of our benzene molecule. We store the initial geometry in <code class="docutils literal notranslate"><span class="pre">mol</span></code> and then we use the PySCF extension called <em>geometry</em> to optimize our geometry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">dft</span>
+<span class="c1">#define initial geometry of benzene</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">C   1.209     0.698   0.000</span>
+<span class="s2">C   0.000     1.396   0.000</span>
+<span class="s2">C  -1.209     0.698   0.000</span>
+<span class="s2">C  -1.209    -0.698   0.000</span>
+<span class="s2">C  -0.000    -1.396   0.000</span>
+<span class="s2">C   1.209    -0.698   0.000</span>
+<span class="s2">H   2.159     1.247   0.000</span>
+<span class="s2">H   0.000     2.493   0.000</span>
+<span class="s2">H  -2.159     1.247   0.000</span>
+<span class="s2">H  -2.159    -1.247   0.000</span>
+<span class="s2">H  -0.000    -2.493   0.000</span>
+<span class="s2">H   2.159    -1.247   0.000</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>  <span class="c1"># in Angstrom</span>
+    <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;6-31g&#39;</span><span class="p">,</span>
+    <span class="n">symmetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span><span class="s1">&#39;b3lyp&#39;</span>
+
+<span class="c1">#run geometry optimization-----------</span>
+
+<span class="n">mol_eq</span> <span class="o">=</span> <span class="n">optimize</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mol_eq</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>We first extend the au units defined in calca.
+
+au electric field = au force / au charge
+au frequency = 1/au time
+au cavity strength = au force/sqrt(au energy)
+</pre></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="units">
+<h1>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h1>
+<section id="units-defined-in-wang-2021">
+<h2>Units Defined in Wang 2021<a class="headerlink" href="#units-defined-in-wang-2021" title="Permalink to this headline">¶</a></h2>
+<p>In Wang 2021, the <strong>cavity strength</strong> is defined as :</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cavity strength func(excitation frequency, E field mode) = sqrt(2/(au action * excitation frequency))
+	* au charge * E field mode
+</pre></div>
+</div>
+<section id="example-of-cavity-strength-given-e-field-and-excitation-frequency">
+<h3>Example of cavity strength given E field and excitation frequency<a class="headerlink" href="#example-of-cavity-strength-given-e-field-and-excitation-frequency" title="Permalink to this headline">¶</a></h3>
+<p>So for example suppose:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>my E field mode = 1.5 au electric field in au electric field =&gt; 1.5 au electric field
+my excitation frequency = 2.4 eV / au action in au frequency =&gt; 0.0882 au frequency
+</pre></div>
+</div>
+<p>The associated cavity strength would then be:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cavity strength func(excitation frequency = my excitation frequency, E field mode = my E field mode) 
+	in au cavity strength =&gt; 7.1429 au cavity strength
+</pre></div>
+</div>
+</section>
+<section id="sanity-check-of-cavity-strength-unit">
+<h3>Sanity check of cavity strength unit<a class="headerlink" href="#sanity-check-of-cavity-strength-unit" title="Permalink to this headline">¶</a></h3>
+<p>Oddly enough, Wang 2021 defines the <strong>unit cavity strength</strong> as:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wang cavity strength = sqrt( eV) / nm 
+</pre></div>
+</div>
+<p>We can re-evaluate our definition of cavity strength in terms of energy and length units:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>au cavity strength alternate = (au energy/au length) / (sqrt(au energy))
+	=&gt; sqrt(au energy)/au length
+</pre></div>
+</div>
+<p>We see that our alternate definition indeed evaluates to a rooted energy divided by a length! This means we can move on since all is working as expected.</p>
+</section>
+<section id="cavity-loss-and-electric-dipole-moment">
+<h3>Cavity loss and electric dipole moment<a class="headerlink" href="#cavity-loss-and-electric-dipole-moment" title="Permalink to this headline">¶</a></h3>
+<p>Wang 2021 defines the <strong>unit cavity loss</strong> as:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wang cavity loss = eV/au action
+</pre></div>
+</div>
+<p>Finally, Wang 2021 defines the <strong>unit electric dipole  moment</strong> as:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wang electric dipole moment = au charge * angstrom
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pyscf">
+<h2>PySCF<a class="headerlink" href="#pyscf" title="Permalink to this headline">¶</a></h2>
+<p>The relevant units used in PySCF are:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pyscf energy = eV
+
+pyscf electric dipole moment = au charge * nm
+</pre></div>
+</div>
+</section>
+<section id="qutip">
+<h2>QuTip<a class="headerlink" href="#qutip" title="Permalink to this headline">¶</a></h2>
+<p>In QuTip, we specify a Hamilonian, loss rates, and time steps. The units we use are not set in stone, but we must make sure that they are consistent with one another.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="calculating-benzene-in-a-leaky-cavity">
+<h1>Calculating Benzene in a Leaky Cavity<a class="headerlink" href="#calculating-benzene-in-a-leaky-cavity" title="Permalink to this headline">¶</a></h1>
+<section id="wang-2021">
+<h2>Wang 2021<a class="headerlink" href="#wang-2021" title="Permalink to this headline">¶</a></h2>
+<p>Wang 2021 specifies a cavity mode of interest with a cavity  :</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wang cavity strength params  = [ .001 , .002 , .008 ] * wang cavity strength
+
+wang cavity loss params = [.001, .004, .008 ] * wang cavity loss
+</pre></div>
+</div>
+<p>We can compute coupling</p>
+</section>
+<section id="ab-initio-pyscf-benzene-calculation-plugged-into-qutip-calculation">
+<h2>‘Ab initio’ PySCF Benzene Calculation Plugged Into QuTiP Calculation<a class="headerlink" href="#ab-initio-pyscf-benzene-calculation-plugged-into-qutip-calculation" title="Permalink to this headline">¶</a></h2>
+<section id="tddft-benzene-results">
+<h3>TDDFT Benzene Results<a class="headerlink" href="#tddft-benzene-results" title="Permalink to this headline">¶</a></h3>
+<p>Using PySCF (in particular the TDDFT module) we find the excited states of Benzene as well as the relevant electric dipole transition moment:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>my excitation energy = 6.93 eV
+my electric dipole moment = 1.89 au charge * bohr
+</pre></div>
+</div>
+</section>
+<section id="parameterize-coupling-strength-as-a-function-of-volume">
+<h3>Parameterize Coupling Strength as a Function of Volume<a class="headerlink" href="#parameterize-coupling-strength-as-a-function-of-volume" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Nano-Optics</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html">Thoughts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html#scully-ch-6">Scully Ch. 6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fabry-Perot-Example.html">QNMs of 1D Fabry-Perot Resonators</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Part 1: Benzene Excited State Calculation with PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#geometry-optimization">Geometry Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#units">Units</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#units-defined-in-wang-2021">Units Defined in Wang 2021</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-of-cavity-strength-given-e-field-and-excitation-frequency">Example of cavity strength given E field and excitation frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sanity-check-of-cavity-strength-unit">Sanity check of cavity strength unit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cavity-loss-and-electric-dipole-moment">Cavity loss and electric dipole moment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pyscf">PySCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#qutip">QuTip</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#calculating-benzene-in-a-leaky-cavity">Calculating Benzene in a Leaky Cavity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#wang-2021">Wang 2021</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ab-initio-pyscf-benzene-calculation-plugged-into-qutip-calculation">‘Ab initio’ PySCF Benzene Calculation Plugged Into QuTiP Calculation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tddft-benzene-results">TDDFT Benzene Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameterize-coupling-strength-as-a-function-of-volume">Parameterize Coupling Strength as a Function of Volume</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="meetings.html">Meetings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QD-Nano-Antenna-Example.html">Two Quantum Dots Connected via a Gold Nano-Antenna</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Fabry-Perot-Example.html" title="previous chapter">QNMs of 1D Fabry-Perot Resonators</a></li>
+      <li>Next: <a href="meetings.html" title="next chapter">Meetings</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/benzene2.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

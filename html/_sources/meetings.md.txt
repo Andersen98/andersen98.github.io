@@ -1,0 +1,24 @@
+# Meetings
+
+A place to take bullet points for weekly meetings.
+
+
+## May 31st 2022
+
+- MeepCon 2022 (should I sign up?)
+- Made the `docs` for this project
+- Re-visited the quasinormal mode expansion method
+  - https://onlinelibrary.wiley.com/doi/full/10.1002/lpor.201700113
+- Found the "good code book"
+  - TODO finish consolidating ALL project code
+  - TODO write reasonable test cases for my adaptive code
+- Met with Ben to discuss nano-optics progress
+  - He showed me some new molecules that they may look at later
+  - I talked to him about my research in quasinormal modes. 
+  - We both agreed it would be helpful for me to make a notebook that goes over a calculation
+    - Ben was actually pretty excited about the gold nano-cavity analysis. He said most codes only focus on micro cavities.
+    - I think that I may be able to code something up in javascript. At this point, web apps can use the GPU to solve 2D maxwell's equations [see here](https://github.com/RobinKa/maxwell-simulation)
+
+### Recap
+- TODO next time figure out how to connect greens function stuff to coupling parameter in hamiltonian
+- look at W. Yan, R. Faggiani, P. Lalanne, Phys.Rev.B2018, 97, 205422.

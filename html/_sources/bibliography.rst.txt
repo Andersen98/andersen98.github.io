@@ -1,0 +1,7 @@
+Bibliography
+============
+
+
+See :cite:p:`lalanne:2018` ,for an introduction to non-standard analysis.
+
+.. bibliography::

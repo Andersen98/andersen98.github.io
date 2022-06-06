@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Nano-Optics &#8212; Nano-Optics  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Thoughts" href="Thoughts.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="nano-optics">
+<h1>Nano-Optics<a class="headerlink" href="#nano-optics" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html">Thoughts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Thoughts.html#d-cavity">1D Cavity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Thoughts.html#normal-mode-expansion">Normal Mode Expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Thoughts.html#classical-hamiltonian-for-a-1d-cavity">Classical Hamiltonian for a 1D cavity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html#scully-ch-6">Scully Ch. 6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Thoughts.html#atom-field-interaction-hamiltonian">Atom-Field Interaction Hamiltonian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Thoughts.html#two-level-atom">Two Level Atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Thoughts.html#approximations-used-on-this-page">Approximations used on this page</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Fabry-Perot-Example.html">QNMs of 1D Fabry-Perot Resonators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Fabry-Perot-Example.html#problem-setup">Problem Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fabry-Perot-Example.html#eigenmodes-are-just-plane-waves-bouncing-back-and-forth">Eigenmodes are just plane waves bouncing back and forth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Fabry-Perot-Example.html#resonance-condition-and-leakage-imply-complex-frequency">Resonance Condition and leakage imply complex frequency</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html">Part 1: Benzene Excited State Calculation with PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#geometry-optimization">Geometry Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#units">Units</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="benzene2.html#units-defined-in-wang-2021">Units Defined in Wang 2021</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="benzene2.html#example-of-cavity-strength-given-e-field-and-excitation-frequency">Example of cavity strength given E field and excitation frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="benzene2.html#sanity-check-of-cavity-strength-unit">Sanity check of cavity strength unit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="benzene2.html#cavity-loss-and-electric-dipole-moment">Cavity loss and electric dipole moment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="benzene2.html#pyscf">PySCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benzene2.html#qutip">QuTip</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#calculating-benzene-in-a-leaky-cavity">Calculating Benzene in a Leaky Cavity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="benzene2.html#wang-2021">Wang 2021</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benzene2.html#ab-initio-pyscf-benzene-calculation-plugged-into-qutip-calculation">‘Ab initio’ PySCF Benzene Calculation Plugged Into QuTiP Calculation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="benzene2.html#tddft-benzene-results">TDDFT Benzene Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="benzene2.html#parameterize-coupling-strength-as-a-function-of-volume">Parameterize Coupling Strength as a Function of Volume</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="meetings.html">Meetings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="meetings.html#may-31st-2022">May 31st 2022</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="meetings.html#recap">Recap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="QD-Nano-Antenna-Example.html">Two Quantum Dots Connected via a Gold Nano-Antenna</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#problem-introduction">Problem Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#model-parameters">Model Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#green-s-function-for-the-electric-field">Green’s Function for the Electric Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#defining-the-total-qd-mnp-hamiltonian">Defining the Total QD-MNP Hamiltonian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#hamiltonian-qd-rotating-frame-picture">Hamiltonian:QD Rotating Frame Picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#master-equation-in-the-interaction-picture">Master Equation in the Interaction Picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#field-operator-relations">Field Operator Relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#master-equation-in-the-schrodinger-picture">Master Equation in the Schrodinger Picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QD-Nano-Antenna-Example.html#derive-the-schrodinger-equation-master-equation">Derive the Schrodinger Equation Master Equation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="QD-Nano-Antenna-Example.html#linblad-operators">Linblad operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QD-Nano-Antenna-Example.html#time-dependent-pauli-matrices">Time dependent Pauli matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QD-Nano-Antenna-Example.html#integral-over-green-s-function">Integral over Green’s function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Nano-Optics</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html">Thoughts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Thoughts.html#scully-ch-6">Scully Ch. 6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fabry-Perot-Example.html">QNMs of 1D Fabry-Perot Resonators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html">Part 1: Benzene Excited State Calculation with PySCF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#geometry-optimization">Geometry Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#units">Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benzene2.html#calculating-benzene-in-a-leaky-cavity">Calculating Benzene in a Leaky Cavity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meetings.html">Meetings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QD-Nano-Antenna-Example.html">Two Quantum Dots Connected via a Gold Nano-Antenna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="Thoughts.html" title="next chapter">Thoughts</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

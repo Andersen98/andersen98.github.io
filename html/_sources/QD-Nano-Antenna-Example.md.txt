@@ -1,0 +1,140 @@
+# Two Quantum Dots Connected via a Gold Nano-Antenna
+
+## Problem Introduction
+
+TODO write introduction.
+
+TODO diagram of geometry goes here
+
+{cite}`lalanne:2018` is a citation
+
+## Model Parameters
+
+For the 3d gold nano-rod, the parameters are :
+- $L = 100nm$
+- radius $r_c = 15 nm$
+- Drude model for dielectric constant $\epsilon (\omega)$ is similar to gold
+  - $\epsilon(\omega) = 1 - \omega_p^2/(\omega^2 + i \omega\gamma)$
+  - bulk plasmon frequency $\omega_p = 1.26 \times 10^{16} rad/s $
+  - collision rate $\gamma = 1.41 \times 10^{14} rad/sec$
+
+## Green's Function for the Electric Field
+
+Green's function defined through position and frequency dependent permittivity.
+
+$$
+\nabla \times \nabla \times \vec{G}(\vec r, \vec r' ; \omega ) - k_0^2 \epsilon(\vec r , \omega) \vec G(\vec r, \vec r' ; \omega) = 
+k_0^2 \delta(\vec r - \vec r') \vec 1
+$$
+
+## Defining the Total QD-MNP Hamiltonian
+
+We treat each QD as a two-level system. We also take the rotating wave approximation. The Total system Hamiltonian is then
+
+$$
+H = \hbar \int d\vec r \int_0^\infty d\omega \omega \vec f^\dagger(\vec r , \omega)\cdot
+\vec f (\vec r, \omega) + \sum_{n=a,b}\hbar \omega_n \sigma_n^+ \sigma_n^- 
+- \left [  \sum_{n=a,b} \sigma_n^+ \int_0^\infty d\omega \vec d _n \cdot 
+vec E (\vec{r}_n , \omega) + \text{ H.c. } \right ], 
+$$
+where $\sigma_n^+/\sigma_n^-$ are the Pauli matrices of the two QD exitons, and $\omega_n$ and $\vec d_n$ are the resonance frequency and dipole moment of the $n$th QD respectively. $\vec f/ \vec f ^\dagger$ are the boson field operators, where the electric field operator is given by 
+$$
+\vec E (\vec r , \omega ) = i \int d \vec r ' \vec G(\vec r, \vec r ' )
+\cdot \sqrt{\frac{\hbar \epsilon_I(\vec r ' , \omega)}{\epsilon_0 \pi}} \vec f (\vec r ' ,\omega),
+$$
+
+where $\epsilon_I (\vec r ,\omega)$ is the imaginary part of $\epsilon(\vec r, \omega)$. 
+## Hamiltonian:QD Rotating Frame Picture
+
+We switch to the rotating frame at the frequency of QD `a`:$\omega_a$. The total Hamiltonian is then split into a system, reservoir, and interaction part.
+
+$$
+H = H_S + H_R + H_I
+$$
+where $H_S, H_R, H_I$ are defined by
+
+- $H_S = -\hbar \Delta_{ab} \sigma_b^+ \sigma_b^-$
+    - where $\Delta_{nm} = \omega_n - \omega_m$
+- $H_I = -\sum_{n=a,b} \left (\sigma^+_n e^{i\omega_a t} \int_0^\infty d\omega \vec{d}_n \cdot \vec E (\vec{r}_n \omega) + H.c \right)$
+- $H_R = \hbar \int d r \int_0^\infty d\omega \,\omega \vec f^\dagger (\vec r, \omega) \cdot \vec f (\vec r, \omega)$ 
+
+
+## Master Equation in the Interaction Picture
+
+We transform into the interaction picture and use the second-order Born-Markov approximation to obtain the master equation for the system. We then focus on the reduced operator for the QD pair and have assumed the reservoir operator is time independent. 
+
+$$
+\partial_t \tilde \rho (t) = - \frac{1}{\hbar^2}\int_0^t d \tau \;\text{Tr}_R\{ [\tilde H_I(t) , 
+[\tilde H_I(t-\tau),\tilde \rho (t)\rho_R]] \}
+$$
+We note that
+- $\rho_R = \rho_R(0)$
+- we have assumed a second-order Born approximation, which is valid in the weak-to-intermediate coupling regime
+- we assume the temperature of the reservoir is 0 K, which is a good approximation at optical frequencies
+
+## Field Operator Relations
+
+We want to transform back into the Schrodinger picture. Before we do so, we evaluate the commutator expression in the interaction picture. The field operators satisfy the following relations:
+
+- $\text{Tr}_R [\vec f_i^\dagger (\vec r, \omega),\vec f_j (\vec r ‘, \omega ‘) \rho_R] = 0$
+- $\text{Tr}_R [\vec f_i (\vec r, \omega) ,\vec f_j^\dagger (\vec r' , \omega' )  \rho_R] = \delta_{i j} \delta(\vec r - \vec r')\delta(\omega - \omega')$
+
+## Master Equation in the Schrodinger Picture
+Plugging the above into the interaction picture and transforming back to the Schrodinger picture, we find that 
+
+$$
+\partial t \rho = \frac{1}{i\hbar} [H_S, \rho] + \int_0^t d \tau \; 
+\left ( \sum_{n,m} [\sigma^-_n (-\tau)\rho \sigma_m^+ - \sigma_n^+ \sigma_m^- (-\tau)\rho]
+\times J^{nm}_{ph}(\tau) + \text{H.c.}
+\right ) + \sum_n \left (  \frac{\gamma_n'}{2} L[\sigma^{11}_n] + \frac{P_n}{2} L[\sigma_n^+] \right)
+$$
+
+we note that:
+- $J^{nm}_{ph}(\tau) = \int_0^\infty d\omega J^{nm}_{ph}(\omega)e^{i \tau (\omega_a -\omega)}$ where the photon reservoir function is defined through
+- $J^{nm}_{ph}(\omega) \frac{\vec d_n \cdot \text{Im} [\vec G_{nm}(\omega)]\cdot \vec d_m}{\pi \hbar \epsilon_0}$
+- where $\vec G_{nm} (\omega) \equiv \vec G (\vec r_n , \vec r_m ; \omega)$
+- where $\vec r_{n/m}$ are the positions of the $n$th/$m$th QD
+- where $\vec d_n = d_n \hat n$ 
+
+
+## Derive the Schrodinger Equation Master Equation
+
+### Linblad operators
+
+The right hand side of the master equation includes a pure depasing term, $L[\sigma^{11}_n]$, with a dephasing rate 
+$\gamma_n'$. 
+
+The superoperator $L$ is the standard Linblad superoperator:
+$$
+L[O] = (O \rho O^\dagger - O^\dagger O \rho) + \text{H.c}
+$$
+
+Finally, the last ter $L[\sigma_n^+]$ allows for an incoherent pump term on each QD$n$ with pump rate $P_n$. 
+
+### Time dependent Pauli matrices
+
+The time dependent Pauli matrices are given by:
+
+$$
+\sigma_n^\pm (-\tau) = e^{-i H_S \tau/\hbar}\sigma^\pm_n e^{i H_S \tau/\hbar}= \sigma_n^\pm e^{\mp i \Delta_{na} \tau}
+$$
+
+```{note}
+For resonant cavities, $\Delta_{na}=0$ so $\sigma^{\pm}_n(-\tau)= \sigma_n^\pm$
+```
+
+### Integral over Green's function
+
+The photo reservoir function involves the following identity:
+
+$$
+\int d \vec r  \vec G (\vec r, \vec r';\omega)\cdot \epsilon_I(\vec r', \omega)\vec G^* (\vec r', \vec r'' ; \omega)
+= \text{Im}[\vec G(\vec r, \vec r'' ; \omega)]
+$$
+
+```{note}
+- In a single QNM picture, $J_{ph}(\tau)$ can be divergent; however, in our master equation, we calculate $\int_0^t J_{ph}(\tau)d\tau$, which is convergent. 
+- In practical QNM calculations, we compute the frequency integral over a finite bandwidth that covers the QNM resonance
+  - limits are at approximately $\pm 0.5\text{ eV}$ from the QNM resonance frequency
+```
+

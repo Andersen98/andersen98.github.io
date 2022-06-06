@@ -1,0 +1,136 @@
+# Part 1: Benzene Excited State Calculation with PySCF
+
+In this tutorial, we will use PySCF to calculate the excited states and the electric dipole transition matrix elements of benzene. 
+
+# Geometry Optimization
+
+To start things off, let's use PySCF to optimize the geometry of our benzene molecule. We store the initial geometry in `mol` and then we use the PySCF extension called _geometry_ to optimize our geometry.
+
+```{code} python
+from pyscf import gto, dft
+#define initial geometry of benzene
+mol = gto.M(atom = """
+C   1.209     0.698   0.000
+C   0.000     1.396   0.000
+C  -1.209     0.698   0.000
+C  -1.209    -0.698   0.000
+C  -0.000    -1.396   0.000
+C   1.209    -0.698   0.000
+H   2.159     1.247   0.000
+H   0.000     2.493   0.000
+H  -2.159     1.247   0.000
+H  -2.159    -1.247   0.000
+H  -0.000    -2.493   0.000
+H   2.159    -1.247   0.000
+    """,  # in Angstrom
+    basis='6-31g',
+    symmetry=True)
+mf = dft.RKS(mol)
+mf.xc ='b3lyp'
+
+#run geometry optimization-----------
+
+mol_eq = optimize(mf)
+print(mol_eq.atom_coords())
+```
+
+
+
+    We first extend the au units defined in calca.
+
+	au electric field = au force / au charge
+	au frequency = 1/au time
+	au cavity strength = au force/sqrt(au energy)
+
+
+
+# Units
+
+## Units Defined in Wang 2021
+In Wang 2021, the **cavity strength** is defined as :
+
+	cavity strength func(excitation frequency, E field mode) = sqrt(2/(au action * excitation frequency))
+		* au charge * E field mode
+
+### Example of cavity strength given E field and excitation frequency
+So for example suppose:
+	
+	my E field mode = 1.5 au electric field in au electric field => 1.5 au electric field
+	my excitation frequency = 2.4 eV / au action in au frequency => 0.0882 au frequency
+	
+The associated cavity strength would then be:
+
+	cavity strength func(excitation frequency = my excitation frequency, E field mode = my E field mode) 
+		in au cavity strength => 7.1429 au cavity strength
+		
+### Sanity check of cavity strength unit
+Oddly enough, Wang 2021 defines the **unit cavity strength** as:
+	
+	wang cavity strength = sqrt( eV) / nm 
+	
+We can re-evaluate our definition of cavity strength in terms of energy and length units:
+
+	au cavity strength alternate = (au energy/au length) / (sqrt(au energy))
+		=> sqrt(au energy)/au length
+		
+We see that our alternate definition indeed evaluates to a rooted energy divided by a length! This means we can move on since all is working as expected.
+
+### Cavity loss and electric dipole moment
+
+Wang 2021 defines the **unit cavity loss** as:
+
+	wang cavity loss = eV/au action
+	
+Finally, Wang 2021 defines the **unit electric dipole  moment** as:
+	
+	wang electric dipole moment = au charge * angstrom
+
+
+## PySCF
+
+The relevant units used in PySCF are:
+
+	pyscf energy = eV
+	
+	pyscf electric dipole moment = au charge * nm
+
+
+## QuTip 
+
+In QuTip, we specify a Hamilonian, loss rates, and time steps. The units we use are not set in stone, but we must make sure that they are consistent with one another.
+
+
+
+
+# Calculating Benzene in a Leaky Cavity
+
+
+## Wang 2021
+
+Wang 2021 specifies a cavity mode of interest with a cavity  :
+
+	wang cavity strength params  = [ .001 , .002 , .008 ] * wang cavity strength
+	
+	wang cavity loss params = [.001, .004, .008 ] * wang cavity loss
+	
+We can compute coupling 
+	
+	
+## ‘Ab initio’ PySCF Benzene Calculation Plugged Into QuTiP Calculation
+
+
+### TDDFT Benzene Results
+
+Using PySCF (in particular the TDDFT module) we find the excited states of Benzene as well as the relevant electric dipole transition moment:
+
+	my excitation energy = 6.93 eV
+	my electric dipole moment = 1.89 au charge * bohr
+	
+###  Parameterize Coupling Strength as a Function of Volume
+
+
+	
+
+
+
+    

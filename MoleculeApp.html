@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make an Online Editor To Illustrate Quantum Energy Level Diagrams</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="making-an-online-editor-to-illustrate-quantum-energy-level-diagrams">Making an Online Editor To Illustrate Quantum Energy Level Diagrams</h1>
+<p>Hi all,</p>
+<p>Lately I’ve been thinking a lot about how to make my research less <em>painful</em>.  I think there are a lot of concepts or ideas in physics that would be well suited to a proper GUI or editor. In this post I want to walk through my first stab at making a web based tool for web physics simulations.</p>
+<h2 id="sketching-out-the-design">Sketching out the design</h2>
+<p>I think a good first step would be to flush out my idea. Since this project is all about building a GUI, I think it would be good to sketch out how this thing will look and what sort of things you can do with it.</p>
+<iframe src="https://drive.google.com/file/d/1u5GJwcZxS2Fd7mSF8dvZa2zDaGo9XQ8o/preview" width="640" height="480"></iframe>
+<ul>
+<li><code>Tool Window</code>: Holds the…tools. These should act as buttons I think.</li>
+<li><code>Diagram Workspace</code>: Needs to real time render user changes. I’d also like to expose it to be controlled by other web apps.</li>
+<li><code>Edit Energy Levels</code>: I’m torn about whether it should just let the user draw willy nilly, or if the user needs to first declare what atoms/molecules are available, what orbitals are defined, and finally what states are connected…sure I’ll go with what I just said.
+<ul>
+<li><code>Add System</code>: Adds an atom or molecule or any other “system.” You pick a name and should be able to add orbitals/states</li>
+<li><code>Add State</code>: Little salt icon is now your cursor. Click on a system and a state appears at the location you clicked. Text fields will be highlighted for you to enter name.</li>
+</ul>
+</li>
+<li><code>Add Particle</code>: Emoji baby (maybe baby with stork?) icon is now your cursor. Click on a state to choose where the new particle goes. Once you click, you get a dialog letting you choose particle properties like (spin, icon to use, charge? …)</li>
+<li><code>Base Canvas</code>: I’d like to make this tool something you can embed in an iframe, so yeah. I guess let’s try to keep in mind that this tool should be in its own little container.</li>
+</ul>
+<h2 id="update-july-5-2022">Update July 5 2022</h2>
+<p>Some <em>not  so great</em> choices were made by me last month, soooo I am now just hopping on for the first time in a while</p>
+<h3 id="change-of-development-choices">Change of Development Choices</h3>
+<p>Oddly enough I don’t want to go with babylonjs at all. It is a bit too bloated. Right now I think <strong>I want to spend a little time on building a drag and drop interactive applet from scratch.</strong></p>
+<p>Thus the gameplan is probably something like</p>
+<ul>
+<li>look for mozilla dev tutorials for interactive web apps</li>
+<li>purchase <a href="https://wizardzines.com/zines/css/">https://wizardzines.com/zines/css/</a> and look at the accompanying examples</li>
+<li>Follow a nice html + css + javascript workflow</li>
+<li>maybe setup a flask server to do dev work or deploy</li>
+</ul>
+<p>Void the below plan</p>
+<pre class=" language-markdown"><code class="prism  language-markdown">
+<span class="token title important"><span class="token punctuation">##</span> Choosing a tool</span>
+
+I'm not going to lie when I say the burden of choice is getting to me. There are a lot of really cool tools to make these web based interactive applets. I'm sure whatever I pick, there are going to be like 50 more that were better suited for my needs.....<span class="token italic"><span class="token punctuation">_</span>ugh<span class="token punctuation">_</span></span>. I guess I should just pick one and go with it for now. 
+
+I think I’ll build this applet in using <span class="token url">[babylonjs](https://www.babylonjs.com)</span>.  The main reason being that they have a nice <span class="token url">[playground feature](https://doc.babylonjs.com/toolsAndResources/tools/playground)</span>. 
+<span class="token title important"><span class="token punctuation">##</span> First steps in developing the app</span>
+I don’t know if I should start here, but I’ll do it anyways. Let’s try to get a rough GUI made. <span class="token url">[Here are the docs for babylonjs’s GUI stuff.](https://doc.babylonjs.com/divingDeeper/gui)</span>
+After reading a bit of the docs, I found some (<span class="token italic"><span class="token punctuation">_</span>hopefully<span class="token punctuation">_</span></span>) relavant info. 
+<span class="token list punctuation">-</span> (there is a GUI editor)[https://doc.babylonjs.com/toolsAndResources/tools/guiEditor]
+<span class="token list punctuation">-</span> [If I run into troupble, I can watch this youtube video that takes an overview of the GUI editor.]
+<span class="token list punctuation">-</span> (https://youtu.be/9VXgZ_af-nE)
+<span class="token list punctuation">-</span> The responsiviness and resolution panel will be important to play around with since I wanna make this embeddable. 
+<span class="token list punctuation">-</span> Here are the <span class="token url">[supported GUI controls in the editor](https://doc.babylonjs.com/toolsAndResources/tools/guiEditor#supported-controls)</span>
+</code></pre>
+</div>
+</body>
+
+</html>

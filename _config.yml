@@ -1,3 +1,22 @@
-theme: jekyll-theme-merlot
-title: Maeve Andersen's Homepage
-description: Still under construction. Come back soon!
+title: Maeve Naphtali Andersen
+email: TheHumanMe@gmail.com
+description: >- # this means to ignore newlines until "baseurl"
+  Physics MS Graduate & Quantitative Researcher. 
+  Specializing in the intersection of Dynamical Systems, 
+  Deep Learning, and Financial Analytics.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://Andersen98.github.io" # the base hostname & protocol for your site
+
+# Social links
+twitter_username: 
+github_username:  Andersen98
+linkedin_username: maeve-andersen-991a8b306
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+
+header_pages:
+  - index.html
+  - about.md 

@@ -13,6 +13,42 @@ title: Portfolio
 
 <hr>
 
+<section class="project-feature" style="margin-bottom: 40px; border-top: 1px solid #eee; padding-top: 20px;">
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
+    
+    <div style="flex: 1; min-width: 300px;">
+      <figure style="margin: 0; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <img src="results/loss_tail.png" alt="CVaR Loss Distribution Figure" style="width: 100%; border-radius: 4px;">
+        <figcaption style="font-size: 0.85em; color: #666; margin-top: 8px; font-style: italic;">
+          <strong>Figure 1:</strong> Stochastic loss tail for a Student-T portfolio (df=3). The salmon-shaded area quantifies the Expected Shortfall (CVaR) beyond the 95% VaR threshold.
+        </figcaption>
+      </figure>
+    </div>
+
+    <div style="flex: 1.2; min-width: 300px;">
+      <h3 style="margin-top: 0;">CVaR Optimization: Stochastic Risk Modeling</h3>
+      <p>
+        A reproduction of the Rockafellar & Uryasev framework for simultaneous VaR/CVaR minimization. This implementation replaces standard Gaussian assumptions with <strong>Multivariate Student-T distributions</strong> to model the "fat-tail" risk inherent in volatile markets.
+      </p>
+      
+      <ul style="font-size: 0.95em; line-height: 1.6;">
+        <li><strong>Theoretical Foundation:</strong> Simultaneous minimization of Equation 9 (Auxiliary Function F_beta) to identify global risk "ground states."</li>
+        <li><strong>Tech Stack:</strong> Python, SciPy (SLSQP Solver), Matplotlib, Pytest.</li>
+        <li><strong>Insight:</strong> Demonstrated a significant reduction in tail exposure compared to traditional mean-variance optimization under non-stationary conditions.</li>
+      </ul>
+
+      <p>
+        <a href="https://github.com/Andersen98/cvar_repro" target="_blank" style="display: inline-block; padding: 8px 16px; background: #24292e; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">
+          Explore the Repository
+        </a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<hr>
+
 <section>
   <h3>Featured Project: The Financial Hamiltonian</h3>
   <p>

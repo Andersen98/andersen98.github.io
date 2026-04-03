@@ -18,8 +18,8 @@ title: Portfolio
     
     <div style="flex: 1; min-width: 300px;">
       <figure style="margin: 0; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
-        <img src="results/loss_tail.png" alt="CVaR Loss Distribution Figure" style="width: 100%; border-radius: 4px;">
-        <figcaption style="font-size: 0.85em; color: #666; margin-top: 8px; font-style: italic;">
+        <img src="results/loss_tail.png" class="zoom" alt="CVaR Loss Distribution Figure" style="width: 100%; border-radius: 4px;">
+        <figcaption style="font-size: 0.85em; color: #665; margin-top: 8px; font-style: italic;">
           <strong>Figure 1:</strong> Stochastic loss tail for a Student-T portfolio (df=3). The salmon-shaded area quantifies the Expected Shortfall (CVaR) beyond the 95% VaR threshold.
         </figcaption>
       </figure>
@@ -107,3 +107,28 @@ title: Portfolio
     I specialize in optimizing high-performance systems and translating complex data into actionable strategy.
   </p>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+
+<script>
+  // This initializes the zoom on all images with the 'zoom' class
+  medium_zoom = mediumZoom('.zoom', {
+    margin: 24,
+    background: '#fff',
+    scrollOffset: 0,
+  })
+</script>
+
+<style>
+  /* Changes the cursor to a magnifying glass so users know it's clickable */
+  .zoom {
+    cursor: zoom-in;
+  }
+  /* Optional: Ensuring the zoomed image has a nice transition */
+  .medium-zoom-overlay {
+    z-index: 999;
+  }
+  .medium-zoom-image--opened {
+    z-index: 1000;
+  }
+</style>

@@ -48,48 +48,41 @@ title: Portfolio
 </section>
 
 <hr>
-<section id="gis-suitability" class="project-featured">
-    <h2>Philadelphia Retail Suitability Engine</h2>
-    <hr>
-
-    <div class="project-content">
-        <figure>
-            <img src="results/gis_pins.png" alt="Philadelphia Retail Suitability Map" style="width:100%; border-radius:8px;">
-            <figcaption><i>Fig 1: Live Deployment (DPL) stage rendering Market Grades across the Philadelphia business grid.</i></figcaption>
+<section id="gis-suitability" style="padding: 40px 0; border-bottom: 1px solid #eee;">
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
+        
+        <figure style="flex: 1; min-width: 300px; max-width: 450px; margin: 0;">
+            <img src="results/gis_pins.png" alt="Philly Retail Map" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <figcaption style="margin-top: 10px; font-size: 0.85em; color: #666; text-align: center;">
+                <i>Fig 1: Post-processing deployment (DPL) visualizing Market Grades.</i>
+            </figcaption>
         </figure>
 
-        <h3>Research & Methodology</h3>
-        <p>
-            Drawing on my experience in the <b>Sharma Group</b>, where I developed the ability to rapidly break into and contribute to new technical fields, I independently researched and implemented the 11-stage data science pipeline taxonomy defined by <b>Biswas et al. (ICSE '22)</b>. This high-impact paper (125+ citations) serves as the architectural backbone of this project, ensuring a strictly decoupled and reproducible workflow.
-        </p>
-
-        <h3>The Suitability Model</h3>
-        <p>
-            Designed for high-density commercial corridors like Center City, the engine solves for site suitability by balancing accessibility against market saturation. Using a normalized suitability equation, the model treats population as a uniform constant to isolate the relationship between transit flow and competitive pressure:
-        </p>
-        
-        <p style="text-align: center; font-size: 1.2em;">
-            $$S = 0.7T - 0.3C$$
-        </p>
-
-        <ul>
-            <li><b>Transit Score ($T$):</b> Quantifies "Kinetic Flow" using rail-weighted spatial joins from SEPTA’s 2025 infrastructure data.</li>
-            <li><b>Competition Intensity ($C$):</b> Quantifies "Potential Resistance" by calculating the product of competitor ratings and review volume via the Google Places API.</li>
-        </ul>
-
-        <h3>The 11-Stage Pipeline Architecture</h3>
-        <div class="pipeline-grid">
-            <p>Implementing the Biswas Taxonomy: 
-                <b>[ACQ]</b> Ingestion &rarr; <b>[PRP]</b> Standardizing (EPSG:2272) &rarr; <b>[STR]</b> SQLite Persistence &rarr; 
-                <b>[FTA]</b> Feature Engineering &rarr; <b>[TRS]</b> Min-Max Scaling &rarr; <b>[SLT]</b> Quality Filtering &rarr; 
-                <b>[MDL]</b> Objective Solving &rarr; <b>[EVL]</b> Statistical Validation &rarr; <b>[INT]</b> Market Grading &rarr; 
-                <b>[CMN]</b> Data Publishing &rarr; <b>[DPL]</b> Web Portal Deployment.
+        <div style="flex: 2; min-width: 300px;">
+            <h2 style="margin-top: 0;">Philadelphia Retail Suitability Engine</h2>
+            <p>
+                Leveraging the research methodology I honed in the <b>Sharma Group</b>, I independently parsed current software engineering literature to identify and implement the 11-stage pipeline taxonomy defined in <b>Biswas et al. (ICSE '22)</b>. This project demonstrates my ability to bridge the gap between high-impact academic research and production-ready GIS engineering.
             </p>
-        </div>
 
-        <div class="project-buttons" style="margin-top: 20px;">
-            <a href="https://github.com/Andersen98/philly-market-intel" class="btn btn-primary">Explore Repo</a>
-            <a href="https://scholar.google.com/scholar?cites=6990670555341055077" target="_blank" class="btn btn-secondary">Reference Paper (ICSE '22)</a>
+            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;">
+                <p style="margin: 0; font-weight: bold;">The Normalized Suitability Equation:</p>
+                <p style="text-align: center; font-size: 1.4em; margin: 10px 0;">
+                    $$S = 0.7T - 0.3C$$
+                </p>
+                <p style="font-size: 0.9em; margin: 0;">
+                    Where <b>T</b> (Transit) models kinetic foot traffic flow and <b>C</b> (Competition) represents market resistance.
+                </p>
+            </div>
+
+            <p style="font-size: 0.95em;">
+                <b>Biswas Taxonomy Implementation:</b><br>
+                <code>[ACQ]</code> Ingest &rarr; <code>[PRP]</code> Prep &rarr; <code>[STR]</code> SQLite &rarr; <code>[FTA]</code> Feature Analysis &rarr; <code>[TRS]</code> Norm &rarr; <code>[SLT]</code> Select &rarr; <code>[MDL]</code> Model &rarr; <code>[EVL]</code> Eval &rarr; <code>[INT]</code> Grade &rarr; <code>[CMN]</code> Publish &rarr; <code>[DPL]</code> Deploy.
+            </p>
+
+            <div style="margin-top: 25px; display: flex; gap: 15px;">
+                <a href="https://github.com/Andersen98/philly-market-intel" style="padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore Repo</a>
+                <a href="https://scholar.google.com/scholar?cites=6990670555341055077" target="_blank" style="padding: 10px 20px; border: 1px solid #333; color: #333; text-decoration: none; border-radius: 5px;">Reference Paper</a>
+            </div>
         </div>
     </div>
 </section>
@@ -183,7 +176,8 @@ title: Portfolio
     scrollOffset: 0,
   })
 </script>
-
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
   /* Changes the cursor to a magnifying glass so users know it's clickable */
   .zoom {
